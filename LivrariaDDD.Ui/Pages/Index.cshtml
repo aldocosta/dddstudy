@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            fetch('/api/livros')
+                .then(response => response.json())
+                .then(data => {
+                    let tbl = document.getElementById('tbl');
+                    let body = tbl.getElementsByTagName('tbody')[0];
+
+                    for (var i = 0; i < data.length; i++) {
+                        //console.log(data);
+                        let tr = document.createElement('tr');
+
+                        let td1 = document.createElement('td');
+                        td1.textContent = data[i].id;
+
+                        let td2 = document.createElement('td');
+                        td2.textContent = data[i].nome;
+
+                        let td3 = document.createElement('td');
+                        td3.textContent = data[i].autor;
+
+                        let td4 = document.createElement('td');
+                        td4.textContent = data[i].dataPublicacao;
+                        tr.append(td1);
+                        tr.append(td2);
+                        tr.append(td3);
+                        tr.append(td4);
+
+                        body.append(tr);
+                    }
+                    
+                });
+        });
+    </script>
+<div class="text-center">
+    <table class="table table-striped" id="tbl">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Livro</th>
+                <th>Autor</th>
+                <th>Data Publicação</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
